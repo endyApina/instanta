@@ -1,0 +1,63 @@
+{
+  "name": "instanta-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Phase 1 API foundation for Instanta",
+  "scripts": {
+    "predev": "npm run db:prepare",
+    "dev": "npm run dev:services",
+    "dev:services": "node scripts/start-app.mjs --dev",
+    "dev:api": "tsx watch src/server.ts",
+    "dev:web": "vite --config web/vite.config.mts",
+    "build": "npm run build:api && npm run build:web",
+    "build:api": "tsc -p tsconfig.json",
+    "build:web": "tsc -p web/tsconfig.json && vite build --config web/vite.config.mts && tsx scripts/prerender.mts",
+    "test": "tsx --test tests/*.test.ts src/__tests__/*.test.ts",
+    "test:integration": "RUN_DB_TESTS=true tsx --test --test-concurrency=1 src/__tests__/edge-cases.test.ts src/__tests__/perpetuals-integration.test.ts src/__tests__/recovery.test.ts",
+    "test:demo": "RUN_DEMO_TESTS=true tsx --test --test-concurrency=1 src/__tests__/demo-mode.test.ts",
+    "worker": "tsx src/worker.ts",
+    "pii:migrate": "tsx scripts/migrate-pii.ts",
+    "start": "node scripts/start-app.mjs",
+    "demo": "npm run build && node scripts/start-app.mjs --demo-only",
+    "start:local": "npm run db:prepare && npm run build && npm start",
+    "db:up": "docker compose up -d --wait --wait-timeout 60 db",
+    "db:stop": "docker compose stop db",
+    "db:down": "docker compose down",
+    "db:logs": "docker compose logs -f db",
+    "db:adminer": "docker compose --profile tools up -d --wait adminer",
+    "db:prepare": "node scripts/local-db.mjs",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:deploy": "prisma migrate deploy"
+  },
+  "engines": {
+    "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.10.1",
+    "@prisma/client": "7.10.1",
+    "bcryptjs": "^3.0.2",
+    "dotenv": "^16.4.7",
+    "decimal.js": "^10.6.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "ws": "^8.18.3",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/express": "^5.0.1",
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^22.13.10",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/ws": "^8.18.1",
+    "concurrently": "^9.2.1",
+    "prisma": "7.10.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "vite": "^7.1.12"
+  }
+}

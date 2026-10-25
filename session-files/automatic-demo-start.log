@@ -1,0 +1,63 @@
+
+> instanta-api@0.1.0 start
+> node scripts/start-app.mjs
+
+[DEMO] Preparing a separate local database and virtual-funds API. Normal account data is unchanged.
+
+> instanta-api@0.1.0 db:up
+> docker compose up -d --wait --wait-timeout 60 db
+
+ Network instanta-demo-auto_default  Creating
+ Network instanta-demo-auto_default  Created
+ Volume instanta-demo-auto_postgres_data  Creating
+ Volume instanta-demo-auto_postgres_data  Created
+ Container instanta-demo-auto-db-1  Creating
+ Container instanta-demo-auto-db-1  Created
+ Container instanta-demo-auto-db-1  Starting
+ Container instanta-demo-auto-db-1  Started
+ Container instanta-demo-auto-db-1  Waiting
+ Container instanta-demo-auto-db-1  Healthy
+
+> instanta-api@0.1.0 db:deploy
+> prisma migrate deploy
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "instanta_demo", schema "public" at "127.0.0.1:50442"
+
+6 migrations found in prisma/migrations
+
+Applying migration `20261024180000_init`
+Applying migration `20261024190000_hardening`
+Applying migration `20261024190100_ledger_invariants`
+Applying migration `20261024190200_profile_encryption`
+Applying migration `20261025070000_global_paper`
+Applying migration `20261025140000_recovery_demo`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261024180000_init/
+    └─ migration.sql
+  └─ 20261024190000_hardening/
+    └─ migration.sql
+  └─ 20261024190100_ledger_invariants/
+    └─ migration.sql
+  └─ 20261024190200_profile_encryption/
+    └─ migration.sql
+  └─ 20261025070000_global_paper/
+    └─ migration.sql
+  └─ 20261025140000_recovery_demo/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+[33m[DEMO] Database-only market feed enabled; external credentials are ignored[0m
+Instanta API listening on port 3001
+[DEMO] Ready on loopback port 3001.
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for YouVerify / Smile ID[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for Anchor / Maplerad / SafeHaven[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for SEC-licensed Fund Manager[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for Termii / Africa's Talking[0m
+[33m[WARN] PERPETUALS.COM API KEY MISSING: Falling back to simulated global market feed[0m
+Instanta API listening on port 3000

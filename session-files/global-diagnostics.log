@@ -1,0 +1,84 @@
+=== compose up ===
+ Network instanta-global-diagnose-20261025_default  Creating
+ Network instanta-global-diagnose-20261025_default  Created
+ Volume instanta-global-diagnose-20261025_postgres_data  Creating
+ Volume instanta-global-diagnose-20261025_postgres_data  Created
+ Container instanta-global-diagnose-20261025-db-1  Creating
+ Container instanta-global-diagnose-20261025-db-1  Created
+ Container instanta-global-diagnose-20261025-db-1  Starting
+ Container instanta-global-diagnose-20261025-db-1  Started
+ Container instanta-global-diagnose-20261025-db-1  Waiting
+ Container instanta-global-diagnose-20261025-db-1  Healthy
+=== migrate deploy ===
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
+Datasource "db": PostgreSQL database "instanta_hardening_test", schema "public" at "127.0.0.1:55446"
+
+5 migrations found in prisma/migrations
+
+Applying migration `20261024180000_init`
+Applying migration `20261024190000_hardening`
+Applying migration `20261024190100_ledger_invariants`
+Applying migration `20261024190200_profile_encryption`
+Applying migration `20261025070000_global_paper`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20261024180000_init/
+    └─ migration.sql
+  └─ 20261024190000_hardening/
+    └─ migration.sql
+  └─ 20261024190100_ledger_invariants/
+    └─ migration.sql
+  └─ 20261024190200_profile_encryption/
+    └─ migration.sql
+  └─ 20261025070000_global_paper/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+=== integration test (bounded 60s) ===
+COMMAND: node --import tsx --test --test-timeout=20000 src/__tests__/perpetuals-integration.test.ts
+✔ REST HMAC matches the official Kronos X vector and signs exact query/body bytes (0.529125ms)
+✔ missing credentials warn loudly and stream explicitly simulated prices; production fails closed (22.303ms)
+✔ order mapping respects metadata, precision and exact venue symbols (0.960833ms)
+✔ volatile premiums reduce position size without breaching a decimal ATP loss budget (0.754167ms)
+✔ signed sandbox orders check engine rejection and never retry ambiguous outcomes (8.019708ms)
+✔ venue rate-limit hints prevent immediate retries and live failures never switch to mock (0.448833ms)
+✔ BayesShield missing configuration returns unknown risk, never a fabricated probability (0.121875ms)
+✔ BayesShield gateway rejects uncorrelated probabilities and blocks failed risk calls (1.956833ms)
+✔ venue positions enforce end-client attribution and stale marks never become paper prices (0.885084ms)
+▶ public venue WebSocket subscribes documented channels, handles gaps and closes cleanly
+  ✔ public feed reconnects with a fresh subscription after a network drop (515.58825ms)
+✔ public venue WebSocket subscribes documented channels, handles gaps and closes cleanly (518.989458ms)
+[33m[WARN] PERPETUALS.COM API KEY MISSING: Falling back to simulated global market feed[0m
+▶ PostgreSQL global paper accounting, attribution and unified stream integration
+  ✔ new global portfolios contain zero balances, no positions, and no trades (42.886708ms)
+  ✔ funding is explicit, balanced and permanently idempotent without touching NGN (187.114958ms)
+  ✔ concurrent orders cannot double-spend and unknown risk needs explicit acknowledgment (192.719ms)
+  ✔ partial/full sells book exact cost and realized losses/gains (160.907792ms)
+  ✔ order replays survive HTTP cache expiry and do not need fresh prices (50.322084ms)
+  ✔ perpetual and barrier execution stay disabled and SQL rejects corrupt paper balances (176.019417ms)
+  ✔ kill switch blocks global paper funding and preserves read access (93.786ms)
+  ✔ unified stream authenticates before subscription and emits simulated global frames (11.760209ms)
+  ✔ unified stream refuses missing authentication and device-mismatched sessions (2.638583ms)
+✔ PostgreSQL global paper accounting, attribution and unified stream integration (1235.809167ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1968.543541
+TEST_EXIT=0
+ Container instanta-global-diagnose-20261025-db-1  Stopping
+ Container instanta-global-diagnose-20261025-db-1  Stopped
+ Container instanta-global-diagnose-20261025-db-1  Removing
+ Container instanta-global-diagnose-20261025-db-1  Removed
+ Volume instanta-global-diagnose-20261025_postgres_data  Removing
+ Network instanta-global-diagnose-20261025_default  Removing
+ Volume instanta-global-diagnose-20261025_postgres_data  Removed
+ Network instanta-global-diagnose-20261025_default  Removed
+CLEANUP_EXIT=0

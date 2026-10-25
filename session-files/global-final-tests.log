@@ -1,0 +1,69 @@
+[ALERT] Partner circuit opened: test. Durable jobs will retry; investigate upstream health.
+[ALERT] Partner circuit opened: concurrent-test. Durable jobs will retry; investigate upstream health.
+[ALERT] Partner circuit opened: probe-test. Durable jobs will retry; investigate upstream health.
+✔ circuit opens after three failures and probes after cooldown (11.830875ms)
+✔ late in-flight successes cannot close an opened circuit (0.231333ms)
+[ALERT] Partner circuit opened: probe-test. Durable jobs will retry; investigate upstream health.
+[ALERT] Partner circuit opened: probe-test. Durable jobs will retry; investigate upstream health.
+[ALERT] Partner circuit opened: test-partner. Durable jobs will retry; investigate upstream health.
+[ALERT] Partner circuit opened: fund-test. Durable jobs will retry; investigate upstream health.
+✔ only one half-open probe runs and failed probes reopen the circuit (22.905166ms)
+✔ malformed gateway JSON counts toward the circuit and never exposes response content (9.523583ms)
+✔ invalid fund executions trip the breaker rather than reporting success (3.451292ms)
+✔ KYC result must identify the submitted verification request (0.855958ms)
+✔ idempotency request hash ignores object key order but not payload changes (0.194833ms)
+✔ production cannot construct mock partners when live credentials are missing (0.113084ms)
+✔ PII encryption is randomized, round-trips and rejects tampering (0.422333ms)
+✔ currency parsing rejects fractional kobo and preserves large balances (0.332834ms)
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for YouVerify / Smile ID[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for Anchor / Maplerad / SafeHaven[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for SEC-licensed Fund Manager[0m
+[33m[WARN] LIVE API KEY MISSING: Falling back to secure mock mode for Termii / Africa's Talking[0m
+▶ PostgreSQL financial, replay, reconciliation and MFA integration cases
+  ✔ registration responds, is replay-safe and queues partner work atomically (927.485333ms)
+  ✔ simultaneous withdrawals cannot double-spend (91.768708ms)
+  ✔ market endpoints validate queries and report unconfigured feeds without creating transactions (37.834459ms)
+  ✔ unbalanced journal rejects atomically and SQL constraints reject bypasses (91.761167ms)
+[WARN] Outbox retry kind=RECONCILE_WEBHOOK id=cmvnhjebv000pxb8oaq4lm1ea attempt=1
+[MOCK] Transaction alert simulated: cmvnhjee9000txb8ojax814pq; no message delivered
+  ✔ signed webhooks dedupe and reconcile exactly once including during kill switch (174.280084ms)
+  ✔ mutating requests require a key, replay responses, and reject key/body conflicts (46.785666ms)
+  ✔ locked goal debits obey the database UTC clock (39.726917ms)
+  ✔ concurrent interest retries post one journal and increment yield only once (89.71625ms)
+  ✔ missing kill switch state fails closed instead of enabling money movement (47.049125ms)
+  ✔ inactive wallets reject direct ledger deposits and withdrawals (28.612292ms)
+  ✔ database kill switch rejects money movement, permits reads and logout revokes sessions (27.643209ms)
+  ✔ OTP expires by database clock and locks after five incorrect attempts (36.649167ms)
+✔ PostgreSQL financial, replay, reconciliation and MFA integration cases (1782.981417ms)
+✔ REST HMAC matches the official Kronos X vector and signs exact query/body bytes (0.468958ms)
+✔ missing credentials warn loudly and stream explicitly simulated prices; production fails closed (21.521584ms)
+✔ order mapping respects metadata, precision and exact venue symbols (0.768ms)
+✔ volatile premiums reduce position size without breaching a decimal ATP loss budget (0.717958ms)
+✔ signed sandbox orders check engine rejection and never retry ambiguous outcomes (7.558625ms)
+✔ venue rate-limit hints prevent immediate retries and live failures never switch to mock (0.439792ms)
+✔ BayesShield missing configuration returns unknown risk, never a fabricated probability (0.110916ms)
+✔ BayesShield gateway rejects uncorrelated probabilities and blocks failed risk calls (1.852125ms)
+✔ venue positions enforce end-client attribution and stale marks never become paper prices (0.865875ms)
+▶ public venue WebSocket subscribes documented channels, handles gaps and closes cleanly
+  ✔ public feed reconnects with a fresh subscription after a network drop (514.241833ms)
+✔ public venue WebSocket subscribes documented channels, handles gaps and closes cleanly (518.2075ms)
+[33m[WARN] PERPETUALS.COM API KEY MISSING: Falling back to simulated global market feed[0m
+▶ PostgreSQL global paper accounting, attribution and unified stream integration
+  ✔ new global portfolios contain zero balances, no positions, and no trades (43.81875ms)
+  ✔ funding is explicit, balanced and permanently idempotent without touching NGN (185.413959ms)
+  ✔ concurrent orders cannot double-spend and unknown risk needs explicit acknowledgment (185.349ms)
+  ✔ partial/full sells book exact cost and realized losses/gains (162.148708ms)
+  ✔ order replays survive HTTP cache expiry and do not need fresh prices (53.623709ms)
+  ✔ perpetual and barrier execution stay disabled and SQL rejects corrupt paper balances (165.835292ms)
+  ✔ kill switch blocks global paper funding and preserves read access (99.438583ms)
+  ✔ unified stream authenticates before subscription and emits simulated global frames (11.882333ms)
+  ✔ unified stream refuses missing authentication and device-mismatched sessions (3.97175ms)
+✔ PostgreSQL global paper accounting, attribution and unified stream integration (1175.247ms)
+ℹ tests 44
+ℹ suites 0
+ℹ pass 44
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3869.574084
