@@ -26,3 +26,19 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
+server {
+    listen 80;
+    server_name _;
+
+    root /app/instanta/dist/web;
+    index index.html;
+
+    location = /app {
+        return 301 /app/;
+    }
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}
